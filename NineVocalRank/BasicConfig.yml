@@ -1,0 +1,118 @@
+#  __  __      ____       ____                           __
+# /\ \/\ \    /\  _`\    /\  _`\                        /\ \
+# \ \ `\\ \   \ \ \L\ \  \ \ \L\ \      __       ___    \ \ \/'\
+#  \ \ , ` \   \ \  _ <'  \ \ ,  /    /'__`\   /' _ `\   \ \ , <
+#   \ \ \`\ \   \ \ \L\ \  \ \ \\ \  /\ \L\.\_ /\ \/\ \   \ \ \\`\
+#    \ \_\ \_\   \ \____/   \ \_\ \_\\ \__/.\_\\ \_\ \_\   \ \_\ \_\
+#     \/_/\/_/    \/___/     \/_/\/ / \/__/\/_/ \/_/\/_/    \/_/\/_/
+#
+# NineVocalRank
+# Github:https://github.com/NineBiliTeam/NineBiliRank
+# Powered By FastAPI & Httpx
+#
+# 在这里修改你的NineBiliRank服务端启动的基本配置
+# 如果其他模块有配置要求，请修改config.<环境名称>.yml
+# 关于YAML标准，请查阅https://www.runoob.com/w3cnote/yaml-intro.html4
+#
+# 如果需要注册自定义的过滤器，请修改app.py，并设置filter.type为Other
+# 如果需要注册自定义的代理员，请修改app.py，并设置spyder.proxy为Other
+#
+
+###################
+# Config Settings #
+###################
+config:
+  # 首选配置文件名称
+  # 部分配置文件只需要写入几条内容，可以单独写入一个配置文件
+  # NineBiliRank引入配置文件类型，部分模块的设置可以写入config.<环境名称>.yml
+  # 在这里输入你的环境名称
+  # e.g.： 首选配置文件为config.dev.yml
+  #  config_env: "dev"
+  config_env: "dev"
+  #
+  # 第三方模块的配置文件位置？
+  # NineBiliRank允许导入一个配置文件
+  # 请以yaml键-值对的方式写入其他配置文件
+  # 具体请参考您使用的模块的配置文档
+  # 例子：
+  #  other_config_file:
+  #    test1: "/path/to/your/config"
+  other_config_file:
+    JHaoProxyPool: "JHaoProxyPool.yml"
+    test1: "config.dev.yml"
+
+#################
+# Server Config #
+#################
+server:
+  # 服务器IP
+  host: "127.0.0.1"
+  # 服务运行端口
+  port: 80
+  # 访问密钥，请求API需要提供此密钥的md5散列
+  # 留空为无密钥，也无需header
+  #  !!!注意!!! 请求时需要提供其md5散列值
+  # 并写入header（{"x-apikey": md5("your-api-key")}）
+  apikey: ""
+  # 是否要对API全局加锁
+  # 如果开启，所有访问者都必须提供apikey（{header="x-apikey": md5("your-api-key")}）
+  # 如果关闭，除了部分对安全有要求的API，其他API都可以自由访问
+  enable_lock: false
+  # 本服务端版本号
+  # 推荐使用语义化版本号
+  version: "0.0.1-beta"
+  # 本服务端名称
+  title: "NineVocalRank"
+
+###################
+# Database Config #
+###################
+database:
+  # 要连接到哪个数据库？
+  # 需要使用SQLAlchemy URL的形式
+  # 具体请参阅https://docs.sqlalchemy.org.cn/en/20/core/engines.html
+  db_url: "sqlite+aiosqlite:///example.db"
+
+#################
+# Filter Config #
+#################
+filter:
+  # 要使用的过滤器组
+  # 目前内置过滤器：
+  #   特殊过滤器：
+  #       - None         ： 留空过滤器，收录全部内容，如果你不确定要过滤的视频类型，请选择此项
+  #       - Other        ： 自定义的过滤器，如果启用了自定义过滤器，请选择此项
+  #   音乐区过滤器：
+  #       - VocaloidChinaFilter： 符合中文虚拟歌手周刊定义的中文虚拟歌手曲目过滤器
+  #       - NBVCDatabaseFilter ： 符合NBVC数据库收录规则的中文虚拟歌手曲目过滤器
+  #
+  type: "None"
+
+#################
+# Spyder Config #
+#################
+spyder:
+  # 爬虫速度
+  # 对于批量数据查询任务，设置每次请求B站API的时间间隔
+  # 爬虫会休眠[sleep_min, sleep_max]范围内的随机时间，单位秒
+  # 如果经常被B站风控，这可能是个重要设置
+  sleep_min: 0
+  sleep_max: 1
+
+  # 爬虫代理源
+  # 目前支持以下代理源：
+  #
+  # 特殊代理源：
+  #   - None：不使用代理
+  #   - Other：自定义代理源。如果启动了自定义的代理员，请选择此项
+  # 高级代理源：
+  #   - MixinProxyPool：混合代理源。不可以直接设置，请参照文档设置
+  # 自建代理源：
+  #   - JHaoProxyPool：使用https://github.com/jhao104/proxy_pool的代理
+  #
+
+  proxy: "Other"
+
+
+# 配置文件版本 请勿修改
+version: "0.0.1"
