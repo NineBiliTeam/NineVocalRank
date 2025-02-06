@@ -13,7 +13,7 @@ from database.utils.search_uploader import (
 uploader_router = APIRouter(prefix="/uploader", tags=["Uploader"])
 
 
-@uploader_router.get("/{mid}/get_stat")
+@uploader_router.get("/{mid}")
 async def get_stat(mid: Annotated[str, Path(title="UP主的mid")]) -> Uploader:
     """
     获取一个UP主的状态信息.

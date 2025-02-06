@@ -133,7 +133,7 @@ class Config:
             self._proxy_pool = buildin_proxy_pools[
                 self._config["basic_config"]["spyder"]["proxy"]
             ]
-            self._proxy_pool_args = (tuple, dict())
+            self._proxy_pool_args = (tuple(), dict())
             logger.success(
                 f"使用内建代理源：{self._config["basic_config"]["spyder"]["proxy"]}"
             )

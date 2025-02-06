@@ -31,7 +31,7 @@ class VideoStat(TypedDict):
 
 
 class VideoInfo(TypedDict):
-    uploader_mid: int
+    uploader_mid: str
     uploader_name: str
     title: str
     pic: str
@@ -66,7 +66,7 @@ class Video(BaseModel):
     video_info: VideoInfo = Field(
         title="视频特征信息",
         default={
-            "uploader_mid": 0,
+            "uploader_mid": "",
             "uploader_name": "",
             "title": "",
             "pic": "",
@@ -177,7 +177,7 @@ class Video(BaseModel):
 
         self.video_info["pages"] = len(data["pages"])
         self.video_info["title"] = data["title"]
-        self.video_info["uploader_mid"] = data["owner"]["mid"]
+        self.video_info["uploader_mid"] = str(data["owner"]["mid"])
         self.video_info["uploader_name"] = data["owner"]["name"]
 
         self.video_info["timestamp"] = int(time.time())

@@ -18,7 +18,7 @@ class VideoDB(Base):
     danmaku: Mapped[int] = Column(Integer, nullable=False)
 
     # --------------视频特征-----------------
-    uploader_mid: Mapped[int] = Column(Integer, nullable=False)
+    uploader_mid: Mapped[str] = Column(String(32), nullable=False)
     title: Mapped[str] = Column(String(128), nullable=False)
     avid: Mapped[str] = Column(String(64), nullable=False)
     bvid: Mapped[str] = Column(String(64), nullable=False)
