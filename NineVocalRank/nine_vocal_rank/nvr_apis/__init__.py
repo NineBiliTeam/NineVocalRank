@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from NineVocalRank.buildin_apis.models import APIPluginMeta
-from NineVocalRank.nine_vocal_rank.nvr_apis.video_stat import video_stat_router
+from buildin_apis.models import APIPluginMeta
+from nine_vocal_rank.nvr_apis.video_stat import video_stat_router
 from nine_vocal_rank.nvr_apis.video_monitor import monitor_router
 from nine_vocal_rank.nvr_apis.vrank_sort import sorted_router
 
