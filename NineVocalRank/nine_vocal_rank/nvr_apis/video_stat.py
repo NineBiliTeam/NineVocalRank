@@ -2,8 +2,8 @@ from fastapi import APIRouter
 from fastapi.params import Query, Path
 from typing_extensions import Annotated
 
-from NineVocalRank.bilibili_modles.Video import Video
-from NineVocalRank.nine_vocal_rank.models.VocaloidVideo import VocaloidVideo
+from bilibili_modles.Video import Video
+from nine_vocal_rank.models.VocaloidVideo import VocaloidVideo
 
 video_stat_router = APIRouter(
     prefix="/video",

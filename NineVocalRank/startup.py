@@ -58,7 +58,7 @@ def init(
     proxy_pool=None,
     routers_=None,
     start_hooks_=None,
-        async_start_tasks_=None,
+    async_start_tasks_=None,
 ):
     """
     初始化NineBiliRank

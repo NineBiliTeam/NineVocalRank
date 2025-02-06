@@ -38,4 +38,3 @@ class VideoSortedByVrankScore(Base):
         sql = select(func.count(VideoSortedByVrankScore.rank))
         async with async_session() as session:
             return await session.scalar(sql)
-

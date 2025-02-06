@@ -10,9 +10,12 @@ monitor_router = APIRouter(
     prefix="/video_monitor",
     tags=["Vocaloid"],
 )
+
+
 class VideoRank(BaseModel):
-    timestamp:float=Field(title="成就达成时间戳")
-    video:VocaloidVideo = Field(title="视频实时信息")
+    timestamp: float = Field(title="成就达成时间戳")
+    video: VocaloidVideo = Field(title="视频实时信息")
+
 
 @monitor_router.get("/latest")
 async def get_latest() -> list[VideoRank]:

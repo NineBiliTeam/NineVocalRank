@@ -4,13 +4,18 @@ from sqlalchemy import select
 
 from bilibili_modles.Video import Video
 from database import async_session
-from nine_vocal_rank.db_models import VideoSortedByVrankScore, VideoSortedByIncreaseView, FreshAchievementVideo
+from nine_vocal_rank.db_models import (
+    VideoSortedByVrankScore,
+    VideoSortedByIncreaseView,
+    FreshAchievementVideo,
+)
 from nine_vocal_rank.db_models.MonitoredVideo import MonitoredVideo
 
 
 def video_to_monitored_video(video: Video):
     view = video.video_stat["view"]
     return MonitoredVideo(view=view, bvid=video.video_id["bvid"])
+
 
 async def get_all_fresh_achievement_videos():
     async with async_session() as session:
@@ -19,12 +24,9 @@ async def get_all_fresh_achievement_videos():
         return result.all()
 
 
-def monitored_video_to_fresh_achievement_video(video:MonitoredVideo):
-    return FreshAchievementVideo(
-        bvid=video.bvid,
-        view=video.view,
-        timestamp=time()
-    )
+def monitored_video_to_fresh_achievement_video(video: MonitoredVideo):
+    return FreshAchievementVideo(bvid=video.bvid, view=video.view, timestamp=time())
+
 
 async def get_video_ranking(video: Video) -> tuple[int, int]:
     """

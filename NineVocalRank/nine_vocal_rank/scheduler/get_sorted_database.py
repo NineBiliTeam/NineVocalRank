@@ -16,6 +16,7 @@ from utils.math_utils import calculate_percentage
 VideoTuple = namedtuple("VideoTuple", ["bvid", "increase_view", "score"])
 level_5 = get_config_from_file()["config"]["vrank_monitor"]["level_5"]
 
+
 async def get_sorted_database():
     logger.info("正在爬取数据...")
     videos = await get_video_tuples()
@@ -66,7 +67,7 @@ async def get_video_tuples() -> list[VideoTuple]:
                 sql = select(VideoDB).where(VideoDB.nbid == i)
                 result = await session.scalars(sql)
                 result = result.all()
-                if i>max_:
+                if i > max_:
                     break
                 if len(result) == 0:
                     continue
@@ -78,7 +79,9 @@ async def get_video_tuples() -> list[VideoTuple]:
                     target_view = get_target_view(video.video_stat["view"])
                     difference = target_view - video.video_stat["view"]
                     if difference <= level_5:
-                        logger.info(f"发现视频{video.video_id["bvid"]}还差{level_5}播放达成下一成绩({difference})，已经加入监测")
+                        logger.info(
+                            f"发现视频{video.video_id["bvid"]}还差{level_5}播放达成下一成绩({difference})，已经加入监测"
+                        )
                         session.add(video_to_monitored_video(video))
                     videos.append(
                         VideoTuple(

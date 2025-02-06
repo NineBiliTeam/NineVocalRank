@@ -32,7 +32,7 @@ class FreshAchievementVideo(Base):
     )
     view: Mapped[int] = Column(Integer, nullable=False)
     bvid: Mapped[str] = Column(String(32), nullable=False)
-    timestamp : Mapped[float] = Column(Float, nullable=False)
+    timestamp: Mapped[float] = Column(Float, nullable=False)
 
     @staticmethod
     async def count():

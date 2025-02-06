@@ -19,18 +19,28 @@ if __name__ == "__main__":
     # 初始化NineBiliRank
     startup.init(
         tasks_=[
-            [(reset_database, "cron"),{"day_of_week": "sat", "hour": 0},],
-            [(get_data_from_evocalrank, "cron"),{"day_of_week": "sat", "hour": 0},],
-            [(get_sorted_database, "cron"),{"hour": 0}],
-            [(achievement_monitor, "interval"),{"hours": 6, "args":(5, )}],
-            [(achievement_monitor, "interval"),{"hours": 3, "args":(4, )}],
-            [(achievement_monitor, "interval"),{"hours": 1, "args":(3, )}],
-            [(achievement_monitor, "interval"),{"minutes": 10, "args":(2, )}],
-            [(achievement_monitor, "interval"),{"minutes": 1, "args":(1, )}],
+            [
+                (reset_database, "cron"),
+                {"day_of_week": "sat", "hour": 0},
+            ],
+            [
+                (get_data_from_evocalrank, "cron"),
+                {"day_of_week": "sat", "hour": 0},
+            ],
+            [(get_sorted_database, "cron"), {"hour": 0}],
+            [(achievement_monitor, "interval"), {"hours": 6, "args": (5,)}],
+            [(achievement_monitor, "interval"), {"hours": 3, "args": (4,)}],
+            [(achievement_monitor, "interval"), {"hours": 1, "args": (3,)}],
+            [(achievement_monitor, "interval"), {"minutes": 10, "args": (2,)}],
+            [(achievement_monitor, "interval"), {"minutes": 1, "args": (1,)}],
         ],
         routers_=[basic_v1_router, nine_vocal_rank_router],
         start_hooks_=[],
-        async_start_tasks_=[reg_video_from_file, get_sorted_database, get_data_from_evocalrank],
+        async_start_tasks_=[
+            reg_video_from_file,
+            get_sorted_database,
+            get_data_from_evocalrank,
+        ],
     )
     # 启动NineBiliRank
     startup.run()

@@ -216,7 +216,8 @@ def get_rank(view) -> tuple[int, str, float]:
             calculate_percentage(view, view),
         )
 
-def get_target_view(view:int):
+
+def get_target_view(view: int):
     rank_code, _, _ = get_rank(view)
-    target_view = 10 ** rank_code.value
+    target_view = 10**rank_code.value
     return target_view
