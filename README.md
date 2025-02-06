@@ -12,7 +12,7 @@
 
 提供用于查询中文虚拟歌手曲目的API，以及计划任务
 
-API文档：[APIFox](https://apifox.com/apidoc/shared-1732993d-5ad1-4aee-ae17-aa68e388d101)
+API文档：[NineBiliRank Basic API](https://apifox.com/apidoc/shared-a554e842-b1a6-4727-aa4e-66ed2454f95c) | [NineVocalRank Vocaloid API](https://apifox.com/apidoc/shared-1732993d-5ad1-4aee-ae17-aa68e388d101)
 
 数据库支持，请参阅：[SQLAlchemy支持的方言](https://docs.sqlalchemy.org.cn/en/20/dialects/index.html)
 
