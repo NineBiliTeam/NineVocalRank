@@ -24,7 +24,7 @@ async def get_video_count() -> Count:
 
 
 @database_router.get("/uploader_count")
-async def get_video_count() -> Count:
+async def get_uploader_count() -> Count:
     """
     获取数据库内UP主数量
     :return:
