@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from buildin_apis.basic.v1.database import database_router
 from buildin_apis.basic.v1.server_stat import server_stat_router
 from buildin_apis.basic.v1.uploader_datas import uploader_router
 from buildin_apis.basic.v1.uploader_manager import uploader_manager_router
@@ -29,3 +30,4 @@ basic_v1_router.include_router(uploader_router)
 basic_v1_router.include_router(video_router)
 basic_v1_router.include_router(video_manager_router)
 basic_v1_router.include_router(uploader_manager_router)
+basic_v1_router.include_router(database_router)

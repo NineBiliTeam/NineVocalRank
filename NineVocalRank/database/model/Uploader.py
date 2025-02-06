@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, func, select
 from sqlalchemy.orm import Mapped
 
-from database import Base
+from bilibili_modles.Uploader import Uploader
+from database import Base, async_session
 
 
 class UploaderDB(Base):
@@ -15,3 +16,15 @@ class UploaderDB(Base):
         Integer, nullable=False, autoincrement=True, primary_key=True
     )
     timestamp: Mapped[int] = Column(Integer, nullable=False)
+
+    @staticmethod
+    async def count():
+        sql = select(func.count(UploaderDB.nbuid))
+        async with async_session() as session:
+            return await session.scalar(sql)
+
+    @staticmethod
+    async def max_id():
+        sql = select(func.max(UploaderDB.nbuid))
+        async with async_session() as session:
+            return await session.scalar(sql)

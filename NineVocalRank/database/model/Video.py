@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, select, func
+from sqlalchemy.dialects.postgresql import asyncpg
 from sqlalchemy.orm import Mapped
 
-from database import Base
+from database import Base, async_session
 
 
 class VideoDB(Base):
@@ -30,3 +31,15 @@ class VideoDB(Base):
     nbid: Mapped[int] = Column(
         Integer, autoincrement=True, nullable=False, primary_key=True
     )
+
+    @staticmethod
+    async def count():
+        sql = select(func.count(VideoDB.nbid))
+        async with async_session() as session:
+            return await session.scalar(sql)
+
+    @staticmethod
+    async def max_id():
+        sql = select(func.max(VideoDB.nbid))
+        async with async_session() as session:
+            return await session.scalar(sql)

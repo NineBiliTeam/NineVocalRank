@@ -14,6 +14,8 @@ async def add_video_to_db(video: Video):
         data = await session.scalars(sql)
         if len(data.all()) != 0:
             return
+        if video.video_stat["view"] == 0:
+            await video.async_update_basic_data()
         video_db = video_model_to_db(video)
         session.add(video_db)
         await session.commit()

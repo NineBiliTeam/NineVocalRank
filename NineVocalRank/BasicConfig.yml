@@ -6,7 +6,7 @@
 #    \ \_\ \_\   \ \____/   \ \_\ \_\\ \__/.\_\\ \_\ \_\   \ \_\ \_\
 #     \/_/\/_/    \/___/     \/_/\/ / \/__/\/_/ \/_/\/_/    \/_/\/_/
 #
-# NineVocalRank
+# NineBiliRank
 # Github:https://github.com/NineBiliTeam/NineBiliRank
 # Powered By FastAPI & Httpx
 #
@@ -62,7 +62,7 @@ server:
   # 推荐使用语义化版本号
   version: "0.0.1-beta"
   # 本服务端名称
-  title: "NineVocalRank"
+  title: "NineBiliRank"
 
 ###################
 # Database Config #
@@ -86,7 +86,7 @@ filter:
   #       - VocaloidChinaFilter： 符合中文虚拟歌手周刊定义的中文虚拟歌手曲目过滤器
   #       - NBVCDatabaseFilter ： 符合NBVC数据库收录规则的中文虚拟歌手曲目过滤器
   #
-  type: "None"
+  type: "NBVCDatabaseFilter"
 
 #################
 # Spyder Config #

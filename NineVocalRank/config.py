@@ -43,6 +43,7 @@ def get_config(*arg, **kwargs):
 def get_config_from_file():
     # 读取配置文件
     config = {"basic_config": init_config(Path("BasicConfig.yml"))}
+
     config.update(
         {
             "config": init_config(

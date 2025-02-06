@@ -1,6 +1,7 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Query
+from fastapi.params import Path
 from pydantic import BaseModel, Field
 
 from bilibili_modles.Uploader import Uploader
@@ -9,25 +10,21 @@ from database.utils.search_uploader import (
     search_uploader_by_name_keyword,
 )
 
-uploader_router = APIRouter(prefix="/Uploader", tags=["Uploader"])
+uploader_router = APIRouter(prefix="/uploader", tags=["Uploader"])
 
 
-class MIDRequestModel(BaseModel):
-    mid: int = Field(title="UP主mid")
-
-
-@uploader_router.get("/GetStat")
-async def get_stat(request_model: Annotated[MIDRequestModel, Query()]) -> Uploader:
+@uploader_router.get("/{mid}/get_stat")
+async def get_stat(mid: Annotated[str, Path(title="UP主的mid")]) -> Uploader:
     """
     获取一个UP主的状态信息.
     此处获得的对象为NineBiliRank内部处理UP自己数据的对象.
     """
-    uploader = Uploader(mid=request_model.mid)
+    uploader = Uploader(mid=mid)
     await uploader.async_update_basic_data()
     return uploader
 
 
-@uploader_router.get("/SearchFromDB")
+@uploader_router.get("/search_from_db")
 async def search_from_db(
     mid: int | None = Query(default=None, title="UP主mid"),
     name: str | None = Query(default=None, title="up主名字关键字词"),

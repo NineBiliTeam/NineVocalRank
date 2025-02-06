@@ -6,7 +6,7 @@
 #    \ \_\ \_\   \ \____/   \ \_\ \_\\ \__/.\_\\ \_\ \_\   \ \_\ \_\
 #     \/_/\/_/    \/___/     \/_/\/ / \/__/\/_/ \/_/\/_/    \/_/\/_/
 #
-# NineVocalRank
+# NineBiliRank
 # Github:https://github.com/NineBiliTeam/NineBiliRank
 # Powered By FastAPI & Httpx
 #
@@ -28,3 +28,15 @@ reg_from_file:
   # 的配置文件
   # txt文件位置
   path: "./test.txt"
+vrank_monitor:
+  # V曲数据监控
+  # 距离下一成就播放量还差多少的曲目，每6小时监测一次？
+  level_5: 50000
+  # 距离下一成就播放量还差多少的曲目，每3小时监测一次？
+  level_4: 25000
+  # 距离下一成就播放量还差多少的曲目，每1小时监测一次？
+  level_3: 15000
+  # 距离下一成就播放量还差多少的曲目，每10分钟监测一次？
+  level_2: 5000
+  # 距离下一成就播放量还差多少的曲目，每1分钟监测一次？
+  level_1: 1000

@@ -173,6 +173,7 @@ class Video(BaseModel):
         self.video_stat["reply"] = stat["reply"]
         self.video_stat["share"] = stat["share"]
         self.video_stat["danmaku"] = stat["danmaku"]
+        self.video_info["pic"] = data["pic"]
 
         self.video_info["pages"] = len(data["pages"])
         self.video_info["title"] = data["title"]

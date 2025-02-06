@@ -16,7 +16,7 @@ uploader_manager_router = APIRouter(
 )
 
 
-@uploader_manager_router.post("/RegUploader")
+@uploader_manager_router.post("/reg_new_uploader")
 async def reg_uploader(mid: int = Form(title="UP主的mid")) -> ResponseModel:
     uploader = Uploader(mid)
     await uploader.async_update_basic_data()
@@ -29,7 +29,7 @@ async def reg_uploader(mid: int = Form(title="UP主的mid")) -> ResponseModel:
     )
 
 
-@uploader_manager_router.post("/DeleteUploader")
+@uploader_manager_router.delete("/delete_uploader")
 async def delete_uploader_(mid: int = Form(title="UP主的mid")) -> ResponseModel:
     uploader = Uploader(mid)
     await uploader.async_update_basic_data()
@@ -38,11 +38,11 @@ async def delete_uploader_(mid: int = Form(title="UP主的mid")) -> ResponseMode
     return ResponseModel(
         message=ResponseStatusMessage.success,
         code=ResponseStatus.success,
-        data=uploader,
+        data=[],
     )
 
 
-@uploader_manager_router.post("/UpdateUploader")
+@uploader_manager_router.post("/update_uploader")
 async def update_uploader_(mid: int = Form()) -> ResponseModel:
     uploader = Uploader(mid)
     await uploader.async_update_basic_data()
