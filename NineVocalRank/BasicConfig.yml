@@ -71,6 +71,8 @@ database:
   # 要连接到哪个数据库？
   # 需要使用SQLAlchemy URL的形式
   # 具体请参阅https://docs.sqlalchemy.org.cn/en/20/core/engines.html
+  # 由于B站用户会用奇奇怪怪的emoji投稿，mysql用户一定要设置字符集utf8mb4一定要设置字符集utf8mb4
+  # 一定要设置字符集utf8mb4一定要设置字符集utf8mb4一定要设置字符集utf8mb4一定要设置字符集utf8mb4
   db_url: "sqlite+aiosqlite:///example.db"
 
 #################

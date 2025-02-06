@@ -16,6 +16,8 @@ API文档：[APIFox](https://apifox.com/apidoc/shared-1732993d-5ad1-4aee-ae17-aa
 
 数据库支持，请参阅：[SQLAlchemy支持的方言](https://docs.sqlalchemy.org.cn/en/20/dialects/index.html)
 
+P.S：**由于B站用户会用奇奇怪怪的emoji投稿，mysql用户一定要设置字符集`utf8mb4`一定要设置字符集`utf8mb4`一定要设置字符集`utf8mb4`**
+
 公共搭建（勿压谢谢）（搭建中）：NineBiliDataBaseAPI
 
 ## 2. 功能
