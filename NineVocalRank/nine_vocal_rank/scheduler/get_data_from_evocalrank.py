@@ -12,11 +12,15 @@ async def get_data_from_evocalrank():
     从[周刊](evocalrank.com)注册视频
     周刊对不起
     """
-    result = (
+    try:
+        result = (
         await (await _http.get_async_session()).get(
             "https://www.evocalrank.com/data/info/latest.json"
         )
     ).json()
+    except Exception as e:
+        logger.info(f"出现异常！{e.__class__}:{e.args}")
+        return
     keywords = [
         "main_rank",
         "oth_pickup",

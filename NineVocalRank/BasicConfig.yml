@@ -71,9 +71,7 @@ database:
   # 要连接到哪个数据库？
   # 需要使用SQLAlchemy URL的形式
   # 具体请参阅https://docs.sqlalchemy.org.cn/en/20/core/engines.html
-  # 由于B站用户会用奇奇怪怪的emoji投稿，mysql用户一定要设置字符集utf8mb4一定要设置字符集utf8mb4
-  # 一定要设置字符集utf8mb4一定要设置字符集utf8mb4一定要设置字符集utf8mb4一定要设置字符集utf8mb4
-  db_url: "sqlite+aiosqlite:///example.db"
+  db_url: "mysql+aiomysql://testdb:moran0710@localhost:3306/testdb"
 
 #################
 # Filter Config #
@@ -88,12 +86,23 @@ filter:
   #       - VocaloidChinaFilter： 符合中文虚拟歌手周刊定义的中文虚拟歌手曲目过滤器
   #       - NBVCDatabaseFilter ： 符合NBVC数据库收录规则的中文虚拟歌手曲目过滤器
   #
-  type: "NBVCDatabaseFilter"
+  type: "None"
 
 #################
 # Spyder Config #
 #################
 spyder:
+  # 异步并发支持
+  async:
+    # 是否启用
+    # 如果使用代理源，不推荐启用
+    # 如果使用Sqlite，最好别启用，可能会导致存入失败
+    #（Sqlite不建议并发使用，请参阅https://docs.sqlalchemy.org/en/20/dialects/sqlite.html#database-locking-behavior-concurrency）
+    enable: true
+    # 异步爬虫线程数？
+    # 开启多少个async task
+    task_count: 256
+
   # 爬虫速度
   # 对于批量数据查询任务，设置每次请求B站API的时间间隔
   # 爬虫会休眠[sleep_min, sleep_max]范围内的随机时间，单位秒
@@ -114,7 +123,3 @@ spyder:
   #
 
   proxy: "Other"
-
-
-# 配置文件版本 请勿修改
-version: "0.0.1"

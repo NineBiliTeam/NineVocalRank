@@ -6,6 +6,7 @@ import uvicorn
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from fastapi import FastAPI
 from fastapi.params import Depends
+from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 from uvicorn_loguru_integration import run_uvicorn_loguru
 
@@ -14,12 +15,12 @@ from config import get_config, get_apikey, get_config_from_file, Config
 from exceptions.BilibiliException import BilibiliException
 
 from logger import logger
-from nine_vocal_rank.scheduler.achievement_monitor import achievement_monitor
 from scheduler.reset_database import reset_database
 
 tasks, scheduler = list(), AsyncIOScheduler()
 routers = list()
 start_hooks, async_start_tasks = list(), list()
+allow_origins = list()
 
 
 @asynccontextmanager
@@ -59,6 +60,7 @@ def init(
     routers_=None,
     start_hooks_=None,
     async_start_tasks_=None,
+    allow_origins_=None,
 ):
     """
     初始化NineBiliRank
@@ -70,7 +72,7 @@ def init(
     :param async_start_tasks_: 异步并行钩子列表
     :return:
     """
-    global tasks, routers, start_hooks, async_start_tasks
+    global tasks, routers, start_hooks, async_start_tasks, allow_origins
     if tasks_ is None:
         tasks_ = []
     if routers_ is None:
@@ -79,11 +81,14 @@ def init(
         start_hooks_ = []
     if async_start_tasks_ is None:
         async_start_tasks_ = []
+    if allow_origins_ is None:
+        allow_origins_ = ["*"]
     Config.get_instance(proxy_pool=proxy_pool, filter_=filter_)
     routers = routers_
     tasks = tasks_
     start_hooks = start_hooks_
     async_start_tasks = async_start_tasks_
+    allow_origins = allow_origins_
 
 
 config = get_config_from_file()
@@ -96,6 +101,13 @@ fastapi_app: FastAPI = FastAPI(
     ),
     title=config["basic_config"]["server"]["title"],
     version=config["basic_config"]["server"]["version"],
+)
+fastapi_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allow_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 fastapi_cdn_host.patch_docs(fastapi_app)

@@ -8,7 +8,7 @@ from http_utils.http import HttpRequest
 
 
 class Uploader(BaseModel):
-    mid: int = Field(title="UP主的mid", default=0)
+    mid: str = Field(title="UP主的mid", default="")
     name: str = Field(title="UP主的用户名", default="")
     fans: int = Field(title="UP主的粉丝数", default=0)
     archive_count: int = Field(title="UP主的稿件数量", default=0)
@@ -16,7 +16,7 @@ class Uploader(BaseModel):
 
     def __init__(
         self,
-        mid: int,
+        mid: str,
         name: str = "",
         fans: int = 0,
         archive_count: int = 0,

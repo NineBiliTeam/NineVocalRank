@@ -39,7 +39,7 @@ if __name__ == "__main__":
         async_start_tasks_=[
             reg_video_from_file,
             get_sorted_database,
-            get_data_from_evocalrank,
+            # get_data_from_evocalrank,
         ],
     )
     # 启动NineBiliRank

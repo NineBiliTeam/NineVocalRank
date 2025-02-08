@@ -15,11 +15,28 @@ from utils.math_utils import calculate_percentage
 
 VideoTuple = namedtuple("VideoTuple", ["bvid", "increase_view", "score"])
 level_5 = get_config_from_file()["config"]["vrank_monitor"]["level_5"]
-
+videos = list()
+stop_queue = list()
 
 async def get_sorted_database():
+    global nbid, videos, stop_queue
+    nbid=0
+    videos = list()
+    stop_queue = list()
+    enable = get_config_from_file()["basic_config"]["spyder"]["async"]["enable"]
+    task_count = get_config_from_file()["basic_config"]["spyder"]["async"]["task_count"]
     logger.info("正在爬取数据...")
-    videos = await get_video_tuples()
+    if enable:
+        for k in range(task_count):
+            logger.info(f"数据库重置任务{k}启动")
+            asyncio.get_event_loop().create_task(get_video_tuples(k))
+        while True:
+            if len(stop_queue) == task_count:
+                break
+            else:
+                await asyncio.sleep(3)
+    else:
+        await get_video_tuples(0)
     logger.info("数据爬取完成，正在清空数据库...")
     await clean_score_database()
     logger.info("数据清空完成，添加数据...")
@@ -27,9 +44,9 @@ async def get_sorted_database():
     logger.success("排名数据添加完成")
 
 
-async def add_videos_rank_to_database(videos: list[VideoTuple]):
-    videos = sorted(videos, key=lambda v: v.increase_view, reverse=True)
-    for video in videos:
+async def add_videos_rank_to_database(videos_: list[VideoTuple]):
+    videos_ = sorted(videos_, key=lambda v: v.increase_view, reverse=True)
+    for video in videos_:
         async with async_session() as session:
             session.add(
                 VideoSortedByIncreaseView(
@@ -39,8 +56,8 @@ async def add_videos_rank_to_database(videos: list[VideoTuple]):
             )
             await session.commit()
 
-    videos = sorted(videos, key=lambda v: v.score, reverse=True)
-    for video in videos:
+    videos_ = sorted(videos_, key=lambda v: v.score, reverse=True)
+    for video in videos_:
         async with async_session() as session:
             session.add(
                 VideoSortedByVrankScore(
@@ -50,17 +67,26 @@ async def add_videos_rank_to_database(videos: list[VideoTuple]):
             )
             await session.commit()
 
+nbid = 0
+lock = asyncio.Lock()
+async def _get_nbid():
+    global nbid
+    while True:
+        async with lock:
+            nbid+=1
+            yield nbid
 
-async def get_video_tuples() -> list[VideoTuple]:
-    videos: list[VideoTuple] = list()
+
+
+async def get_video_tuples(task_id):
+    global videos
     total = await VideoDB.count()
-    i = 0
     rand_min = get_config()["basic_config"]["spyder"]["sleep_min"]
     rand_max = get_config()["basic_config"]["spyder"]["sleep_max"]
     max_ = await VideoDB.max_id()
     for k in range(total):
         while True:
-            i += 1
+            i = await _get_nbid().__anext__()
             async with async_session() as session:
                 from sqlalchemy import select
 
@@ -91,16 +117,16 @@ async def get_video_tuples() -> list[VideoTuple]:
                         )
                     )
                     logger.info(
-                        f"[{k} | {total} | {calculate_percentage(k, total)}%]成功加入{video_db.bvid}"
+                        f"[{i} | {total} | {calculate_percentage(k, total)}%]成功加入{video_db.bvid}"
                     )
                 except Exception as e:
                     logger.error(f"出现异常{type(e)}:{e.args}")
                 await asyncio.sleep(random.uniform(rand_min, rand_max))
                 await session.commit()
                 break
-
+    stop_queue.append(None)
+    logger.info(f"{task_id}完成")
     return videos
-
 
 async def clean_score_database():
     total = await VideoSortedByVrankScore.count()

@@ -90,7 +90,7 @@ class Video(BaseModel):
         title: str = "",
         pic: str = "",
         pages: int = 0,
-        uploader_mid: int = 0,
+        uploader_mid: str = "",
         tid: int = 0,
         timestamp: int = int(time.time()),
     ):
@@ -173,10 +173,10 @@ class Video(BaseModel):
         self.video_stat["reply"] = stat["reply"]
         self.video_stat["share"] = stat["share"]
         self.video_stat["danmaku"] = stat["danmaku"]
-        self.video_info["pic"] = data["pic"]
 
         self.video_info["pages"] = len(data["pages"])
         self.video_info["title"] = data["title"]
+        self.video_info["pic"] = data["pic"]
         self.video_info["uploader_mid"] = str(data["owner"]["mid"])
         self.video_info["uploader_name"] = data["owner"]["name"]
 
