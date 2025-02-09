@@ -31,7 +31,8 @@ P.S：**由于B站用户会用奇奇怪怪的emoji投稿，mysql用户一定要�
 2. 新建虚拟环境并`pip install -r requirements.txt`
 3. `cd NineVocalRank`并修改`BasicConfig.yml`以及`config.dev.yml`，配置数据库
 4. 从`data`文件夹内找到一个最近日期的txt文件（如`2025-02-06.txt`），这个文件包含`NineSpyder`获取的中V曲目BV号数据，将其的路径填写到`config.dev.yml`对应的配置项内
-5. `python nbrank.py`
+5. `alembic upgrade head`
+6. `python nbrank.py`
 
 
 ## 4. 收录规则
