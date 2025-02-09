@@ -15,6 +15,7 @@ from config import get_config, get_apikey, get_config_from_file, Config
 from exceptions.BilibiliException import BilibiliException
 
 from logger import logger
+from nine_vocal_rank.exceptions.database import VideoValidationError
 from scheduler.reset_database import reset_database
 
 tasks, scheduler = list(), AsyncIOScheduler()
@@ -140,8 +141,8 @@ def run(debug: bool = False, *args, **kwargs):
         )
 
 
-@fastapi_app.exception_handler(BilibiliException)
-async def bilibili_exception_handler(_, exception: BilibiliException):
+@fastapi_app.exception_handler(Exception)
+async def bilibili_exception_handler(_, exception: Exception):
     return JSONResponse(
         {
             "message": f"{exception.__class__.__name__}: {exception.args}",

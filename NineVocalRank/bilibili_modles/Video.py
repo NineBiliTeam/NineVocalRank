@@ -75,9 +75,10 @@ class Video(BaseModel):
     )
     video_id: VideoID = Field(title="视频ID信息", default={"avid": "", "bvid": ""})
 
-    def __init__(
-        self,
-        video_id: str,
+    @classmethod
+    def build(
+        cls,
+        vid: str,
         view: int = 0,
         like: int = 0,
         coin: int = 0,
@@ -94,24 +95,9 @@ class Video(BaseModel):
         tid: int = 0,
         timestamp: int = int(time.time()),
     ):
-        super().__init__()
-        """
-        构造视频对象
-        **注意** 构造完的视频对象**不带**任何数据，需要调用`update_basic_data()`（同步）或者`async_update_basic_data`（异步）更新数据
-        :param video_id:AV号或者BV号1
-        """
-        if avid and bvid:
-            self.video_id = VideoID(avid=avid, bvid=bvid, tid=tid)
-        else:
-            if is_avid(video_id):
-                self.video_id = VideoID(avid=video_id, bvid="", tid=0)
-            elif is_bvid(video_id):
-                self.video_id = VideoID(avid="", bvid=video_id, tid=0)
-            else:
-                raise BilibiliRequestException(
-                    f"输入的不是一个合法的视频ID！({video_id})"
-                )
-        self.video_stat = VideoStat(
+        instance = cls(vid)
+        instance.video_id = VideoID(avid=avid, bvid=bvid, tid=tid)
+        instance.video_stat = VideoStat(
             view=view,
             like=like,
             coin=coin,
@@ -120,7 +106,7 @@ class Video(BaseModel):
             share=share,
             danmaku=danmaku,
         )
-        self.video_info = VideoInfo(
+        instance.video_info = VideoInfo(
             uploader_mid=uploader_mid,
             uploader_name=title,
             title=title,
@@ -128,8 +114,26 @@ class Video(BaseModel):
             pages=pages,
             timestamp=timestamp,
         )
-        self._http = HttpRequest().get_instance()
-        self.video_id["avid"] = self.video_id["avid"].lower().replace("av", "")
+        instance.video_id["avid"] = instance.video_id["avid"].lower().replace("av", "")
+        return instance
+
+    def __init__(
+        self,
+        video_id: str,
+    ):
+        super().__init__()
+        """
+        构造视频对象
+        **注意** 构造完的视频对象**不带**任何数据，需要调用`update_basic_data()`（同步）或者`async_update_basic_data`（异步）更新数据
+        :param video_id:AV号或者BV号1
+        """
+        if is_avid(video_id):
+            self.video_id = VideoID(avid=video_id, bvid="", tid=0)
+        elif is_bvid(video_id):
+            self.video_id = VideoID(avid="", bvid=video_id, tid=0)
+        else:
+            raise BilibiliRequestException(f"输入的不是一个合法的视频ID！({video_id})")
+        self._http = HttpRequest()
 
     async def get_video_desc(self):
         resp = self._http.session.get(

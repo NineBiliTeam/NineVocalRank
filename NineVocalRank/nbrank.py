@@ -38,7 +38,7 @@ if __name__ == "__main__":
         start_hooks_=[],
         async_start_tasks_=[
             reg_video_from_file,
-            get_sorted_database,
+            # get_sorted_database,
             # get_data_from_evocalrank,
         ],
     )

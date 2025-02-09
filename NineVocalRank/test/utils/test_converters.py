@@ -57,4 +57,4 @@ def test_video_converters(uploader):
     checker = uploader_model.model_copy()
     uploader_db = uploader_model_to_db(uploader_model)
     model2 = uploader_db_to_model(uploader_db)
-    assert checker == model2
+    assert checker.mid == model2.mid

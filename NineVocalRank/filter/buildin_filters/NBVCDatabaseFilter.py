@@ -4,7 +4,7 @@ from filter.buildin_filters.VocaloidChinaFilter import VocaloidChinaFilter
 
 uploader_blacklist = [
     # 屏蔽规则1.4: 拒绝收录的UP主
-    1037289255
+    "1037289255"
 ]
 
 video_blacklist = [

@@ -2,6 +2,7 @@ import time
 
 from typing import TypedDict
 
+from loguru import logger
 from pydantic import Field
 
 from bilibili_modles.Video import Video
@@ -59,39 +60,13 @@ class VocaloidVideo(Video):
         提供周刊算分等其他功能
         传入Video即可升级
         """
-        super().__init__(
-            video.video_id["bvid"],
-            video.video_stat["view"],
-            video.video_stat["like"],
-            video.video_stat["coin"],
-            video.video_stat["favorite"],
-            video.video_stat["share"],
-            video.video_stat["reply"],
-            video.video_stat["danmaku"],
-            video.video_id["avid"],
-            video.video_id["bvid"],
-            video.video_info["title"],
-            video.video_info["pic"],
-            video.video_info["pages"],
-            video.video_info["uploader_mid"],
-            video.video_id["tid"],
-            time.time(),
-        )
-        self.video_increase = {
-            "view": 0,
-            "like": 0,
-            "coin": 0,
-            "favorite": 0,
-            "reply": 0,
-            "share": 0,
-            "danmaku": 0,
-        }
+        super().__init__(video.video_id["bvid"])
 
     async def _async_get_vocalrank_score(self):
         video_dbs = await search_video_by_bvid(self.video_id["bvid"])
         if len(video_dbs) == 0:
             filter_ = get_filter()
-            if filter_.check(self):
+            if await filter_.check(self):
                 await add_video_to_db(self)
                 self.video_increase = {
                     "view": 0,

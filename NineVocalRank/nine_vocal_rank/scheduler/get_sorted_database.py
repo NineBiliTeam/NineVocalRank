@@ -18,9 +18,10 @@ level_5 = get_config_from_file()["config"]["vrank_monitor"]["level_5"]
 videos = list()
 stop_queue = list()
 
+
 async def get_sorted_database():
     global nbid, videos, stop_queue
-    nbid=0
+    nbid = 0
     videos = list()
     stop_queue = list()
     enable = get_config_from_file()["basic_config"]["spyder"]["async"]["enable"]
@@ -46,36 +47,36 @@ async def get_sorted_database():
 
 async def add_videos_rank_to_database(videos_: list[VideoTuple]):
     videos_ = sorted(videos_, key=lambda v: v.increase_view, reverse=True)
-    for video in videos_:
+    for index, video in enumerate(videos_):
         async with async_session() as session:
             session.add(
                 VideoSortedByIncreaseView(
-                    bvid=video.bvid,
-                    view=video.increase_view,
+                    bvid=video.bvid, view=video.increase_view, rank=index + 1
                 )
             )
             await session.commit()
 
     videos_ = sorted(videos_, key=lambda v: v.score, reverse=True)
-    for video in videos_:
+    for index, video in enumerate(videos_):
         async with async_session() as session:
             session.add(
                 VideoSortedByVrankScore(
-                    bvid=video.bvid,
-                    score=video.score,
+                    bvid=video.bvid, score=video.score, rank=index + 1
                 )
             )
             await session.commit()
 
+
 nbid = 0
 lock = asyncio.Lock()
+
+
 async def _get_nbid():
     global nbid
     while True:
         async with lock:
-            nbid+=1
+            nbid += 1
             yield nbid
-
 
 
 async def get_video_tuples(task_id):
@@ -99,6 +100,8 @@ async def get_video_tuples(task_id):
                     continue
 
                 video_db: VideoDB = result[0]
+                if video_db is None:
+                    continue
                 try:
                     video = VocaloidVideo(Video(video_db.bvid))
                     await video.async_update_basic_data()
@@ -117,7 +120,7 @@ async def get_video_tuples(task_id):
                         )
                     )
                     logger.info(
-                        f"[{i} | {total} | {calculate_percentage(k, total)}%]成功加入{video_db.bvid}"
+                        f"[{i} | {total} | {calculate_percentage(i, total)}%]成功加入{video_db.bvid}"
                     )
                 except Exception as e:
                     logger.error(f"出现异常{type(e)}:{e.args}")
@@ -127,6 +130,7 @@ async def get_video_tuples(task_id):
     stop_queue.append(None)
     logger.info(f"{task_id}完成")
     return videos
+
 
 async def clean_score_database():
     total = await VideoSortedByVrankScore.count()

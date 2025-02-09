@@ -15,8 +15,8 @@ def uploader_db_to_model(db_uploader: UploaderDB) -> Uploader:
 
 
 def video_db_to_model(db_video: VideoDB) -> Video:
-    return Video(
-        video_id="",
+    return Video.build(
+        vid=db_video.bvid,
         bvid=db_video.bvid,
         avid=db_video.avid,
         timestamp=db_video.timestamp,

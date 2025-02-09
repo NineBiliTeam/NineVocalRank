@@ -48,7 +48,7 @@ server:
   # 服务器IP
   host: "127.0.0.1"
   # 服务运行端口
-  port: 80
+  port: 1234
   # 访问密钥，请求API需要提供此密钥的md5散列
   # 留空为无密钥，也无需header
   #  !!!注意!!! 请求时需要提供其md5散列值
@@ -86,7 +86,7 @@ filter:
   #       - VocaloidChinaFilter： 符合中文虚拟歌手周刊定义的中文虚拟歌手曲目过滤器
   #       - NBVCDatabaseFilter ： 符合NBVC数据库收录规则的中文虚拟歌手曲目过滤器
   #
-  type: "None"
+  type: "NBVCDatabaseFilter"
 
 #################
 # Spyder Config #
