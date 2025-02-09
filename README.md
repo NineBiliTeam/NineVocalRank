@@ -18,7 +18,7 @@ API文档：[NineBiliRank Basic API](https://apifox.com/apidoc/shared-a554e842-b
 
 P.S：**由于B站用户会用奇奇怪怪的emoji投稿，mysql用户一定要设置字符集`utf8mb4`一定要设置字符集`utf8mb4`一定要设置字符集`utf8mb4`**
 
-公共搭建（勿压谢谢）（搭建中）：NineBiliDataBaseAPI
+公共搭建：[NineBiliDataBaseAPI](https://api.ninevocalrank.top/redoc)
 
 ## 2. 功能
 
