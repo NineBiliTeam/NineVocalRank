@@ -15,19 +15,23 @@ lock = asyncio.Lock()
 
 nbid = 0
 nbuid = 0
+
+
 async def _get_nbid():
     global nbid
     while True:
         async with lock:
-            nbid+=1
+            nbid += 1
             yield nbid
+
 
 async def _get_nbuid():
     global nbuid
     while True:
         async with lock:
-            nbuid+=1
+            nbuid += 1
             yield nbuid
+
 
 async def reset_database():
     global nbid, nbuid
@@ -42,7 +46,8 @@ async def reset_database():
     else:
         await _reset_database(0)
 
-async def _reset_database(task_id:int):
+
+async def _reset_database(task_id: int):
     rand_min = get_config()["basic_config"]["spyder"]["sleep_min"]
     rand_max = get_config()["basic_config"]["spyder"]["sleep_max"]
     max_ = await VideoDB.max_id()
@@ -53,6 +58,7 @@ async def _reset_database(task_id:int):
             i = await _get_nbid().__anext__()
             async with async_session(autoflush=True) as session:
                 from sqlalchemy import select
+
                 sql = select(VideoDB).where(VideoDB.nbid == i)
                 result = await session.scalars(sql)
                 result = result.all()

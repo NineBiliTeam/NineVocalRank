@@ -14,10 +14,10 @@ async def get_data_from_evocalrank():
     """
     try:
         result = (
-        await (await _http.get_async_session()).get(
-            "https://www.evocalrank.com/data/info/latest.json"
-        )
-    ).json()
+            await (await _http.get_async_session()).get(
+                "https://www.evocalrank.com/data/info/latest.json"
+            )
+        ).json()
     except Exception as e:
         logger.info(f"出现异常！{e.__class__}:{e.args}")
         return
