@@ -23,7 +23,7 @@ async def get_video_ranking_(
     """
     获取视频的排名
     """
-    video = VocaloidVideo(Video(vid))
+    video = VocaloidVideo(vid)
     await video.async_update_basic_data()
 
     score_rank, view_rank = await get_video_ranking(video)

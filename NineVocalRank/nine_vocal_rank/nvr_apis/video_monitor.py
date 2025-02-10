@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
+from typing_extensions import TypedDict
 
 from bilibili_modles.Video import Video
 from nine_vocal_rank.models.VocaloidVideo import VocaloidVideo
@@ -12,9 +13,9 @@ monitor_router = APIRouter(
 )
 
 
-class VideoRank(BaseModel):
-    timestamp: float = Field(title="成就达成时间戳")
-    video: VocaloidVideo = Field(title="视频实时信息")
+class VideoRank(TypedDict):
+    timestamp: float
+    video: VocaloidVideo
 
 
 @monitor_router.get("/latest")
@@ -26,7 +27,7 @@ async def get_latest() -> list[VideoRank]:
     fresh_videos = await get_all_fresh_achievement_videos()
     result = list()
     for video in fresh_videos:
-        vocaloid_video = VocaloidVideo(Video(video.bvid))
+        vocaloid_video = VocaloidVideo(video.bvid)
         await vocaloid_video.async_update_basic_data()
         rank_code, rank_message, _ = get_rank(vocaloid_video.video_stat["view"])
         result.append(

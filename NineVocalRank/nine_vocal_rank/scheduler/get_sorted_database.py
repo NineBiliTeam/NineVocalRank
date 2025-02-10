@@ -103,7 +103,7 @@ async def get_video_tuples(task_id):
                 if video_db is None:
                     continue
                 try:
-                    video = VocaloidVideo(Video(video_db.bvid))
+                    video = VocaloidVideo(video_db.bvid)
                     await video.async_update_basic_data()
                     target_view = get_target_view(video.video_stat["view"])
                     difference = target_view - video.video_stat["view"]

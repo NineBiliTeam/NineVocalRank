@@ -13,7 +13,7 @@ class BaseFilter:
         pass
 
     @abc.abstractmethod
-    async def check(self, video: Video) -> bool:
+    async def check(self, video: Video) -> (bool, str):
         """
         视频合法性检查器
         :param video:  B站视频对象

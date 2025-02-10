@@ -37,7 +37,7 @@ async def check_video(video: MonitoredVideo, level: int, session: AsyncSession):
 async def upgrade_video(
     target_view, monitored_video: MonitoredVideo, session: AsyncSession
 ):
-    video = VocaloidVideo(Video(monitored_video.bvid))
+    video = VocaloidVideo(monitored_video.bvid)
     await video.async_update_basic_data()
     monitored_video.view = video.video_stat["view"]
     difference = target_view - video.video_stat["view"]

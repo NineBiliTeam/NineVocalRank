@@ -23,11 +23,11 @@ async def reg_video(vid: str = Form()) -> ResponseModel:
     _filter = get_filter()
     video = Video(vid)
     await video.async_update_basic_data()
-    is_legal = await _filter.check(video)
+    is_legal, reason = await _filter.check(video)
     if not is_legal:
         return ResponseModel(
             code=ResponseStatus.video_is_invalid,
-            message=ResponseStatusMessage.video_is_invalid,
+            message=reason,
             data=video,
         )
     await add_video_to_db(video)

@@ -54,19 +54,20 @@ class VocaloidVideo(Video):
         },
     )
 
-    def __init__(self, video: Video):
+    def __init__(self, vid:str):
         """
         Vocaloid视频对象.
         提供周刊算分等其他功能
-        传入Video即可升级
+        传入Vid
         """
-        super().__init__(video.video_id["bvid"])
+        super().__init__(vid)
 
     async def _async_get_vocalrank_score(self):
         video_dbs = await search_video_by_bvid(self.video_id["bvid"])
         if len(video_dbs) == 0:
             filter_ = get_filter()
-            if await filter_.check(self):
+            flag, reason = await filter_.check(self)
+            if flag:
                 await add_video_to_db(self)
                 self.video_increase = {
                     "view": 0,
@@ -78,7 +79,7 @@ class VocaloidVideo(Video):
                     "danmaku": 0,
                 }
             else:
-                raise VideoValidationError("视频不符合NBVCDatabase注册规则！")
+                raise VideoValidationError(f"视频不符合NBVCDatabase注册规则！原因：{reason}")
         else:
             video_db = video_dbs[0]
             self.video_increase = {

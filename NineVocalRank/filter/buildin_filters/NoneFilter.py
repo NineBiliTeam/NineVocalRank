@@ -6,8 +6,8 @@ class NoneFilter(BaseFilter):
     def __init__(self):
         super().__init__()
 
-    async def check(self, video: Video) -> bool:
-        return True
+    async def check(self, video: Video) -> (bool, str):
+        return True, ""
 
 
 from config import reg_buildin_filter

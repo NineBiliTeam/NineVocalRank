@@ -128,7 +128,7 @@ class Video(BaseModel):
         :param video_id:AV号或者BV号1
         """
         if is_avid(video_id):
-            self.video_id = VideoID(avid=video_id, bvid="", tid=0)
+            self.video_id = VideoID(avid=video_id.lower().replace("av", ""), bvid="", tid=0)
         elif is_bvid(video_id):
             self.video_id = VideoID(avid="", bvid=video_id, tid=0)
         else:
