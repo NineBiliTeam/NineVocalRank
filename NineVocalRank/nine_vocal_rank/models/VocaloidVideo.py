@@ -54,7 +54,7 @@ class VocaloidVideo(Video):
         },
     )
 
-    def __init__(self, vid:str):
+    def __init__(self, vid: str):
         """
         Vocaloid视频对象.
         提供周刊算分等其他功能
@@ -79,7 +79,9 @@ class VocaloidVideo(Video):
                     "danmaku": 0,
                 }
             else:
-                raise VideoValidationError(f"视频不符合NBVCDatabase注册规则！原因：{reason}")
+                raise VideoValidationError(
+                    f"视频不符合NBVCDatabase注册规则！原因：{reason}"
+                )
         else:
             video_db = video_dbs[0]
             self.video_increase = {

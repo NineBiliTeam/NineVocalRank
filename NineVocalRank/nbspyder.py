@@ -18,6 +18,7 @@ NineBiliRank
 if __name__ == "__main__":
     # 初始化NineBiliRank
     startup.init(
+        mode_="spyder",
         tasks_=[
             [
                 (reset_database, "cron"),
@@ -37,9 +38,9 @@ if __name__ == "__main__":
         routers_=[basic_v1_router, nine_vocal_rank_router],
         start_hooks_=[],
         async_start_tasks_=[
-            #reg_video_from_file,
-            #get_sorted_database,
-           #get_data_from_evocalrank,
+            reg_video_from_file,
+            get_sorted_database,
+            get_data_from_evocalrank,
         ],
     )
     # 启动NineBiliRank

@@ -48,6 +48,8 @@ blacklist_keyword = [
     "drive.google.com",
     "twitter",
     "x.com",
+    # 不该进来的奇怪东西
+    "周刊",
 ]
 
 
@@ -64,7 +66,7 @@ class VocaloidChinaFilter(BaseFilter):
     async def check(self, video: Video):
         # 投稿在Vocaloid·UTAU分区的歌曲
         if video.video_id["tid"] != 30:
-            return False, "不在Vocaloid分区(1.2)"
+            return False, f"不在Vocaloid分区(1.2)(实际tid={video.video_id["tid"]})"
         desc = (await video.get_video_desc()).lower()
         tags = await video.get_video_tags()
         title = video.video_info["title"].lower()
@@ -73,7 +75,10 @@ class VocaloidChinaFilter(BaseFilter):
         for item in (title, desc):
             for keyword in blacklist_keyword:
                 if keyword in item:
-                    return False, "不符合中文虚拟歌手曲目定义(1.1)(标题或简介识别出日V关键词)"
+                    return (
+                        False,
+                        "不符合中文虚拟歌手曲目定义(1.1)(标题或简介识别出日V关键词)",
+                    )
 
         # 匹配tags中是否有关键词
         for tag in tags:

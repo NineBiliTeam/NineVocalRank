@@ -22,7 +22,9 @@ async def get_video(
     未注册的视频，如果识别为符合NBVC规则的曲目，则会自动注册，返回的周刊得分等数据恒为0
     如果请求的视频不是符合NBVC规则的曲目，则抛出VideoValidationError
     """
+    logger.debug("1")
     video: VocaloidVideo = VocaloidVideo(vid)
+    logger.debug("2")
     await video.async_update_basic_data()
+    logger.debug("3")
     return video
-

@@ -26,10 +26,10 @@ async def get_sorted_database():
     stop_queue = list()
     enable = get_config_from_file()["basic_config"]["spyder"]["async"]["enable"]
     task_count = get_config_from_file()["basic_config"]["spyder"]["async"]["task_count"]
-    logger.info("正在爬取数据...")
+    logger.info(f"正在队数据库排序...... [启动多任务：{task_count if enable else 0}]")
     if enable:
         for k in range(task_count):
-            logger.info(f"数据库重置任务{k}启动")
+            logger.debug(f"数据库重置任务{k}启动")
             asyncio.get_event_loop().create_task(get_video_tuples(k))
         while True:
             if len(stop_queue) == task_count:

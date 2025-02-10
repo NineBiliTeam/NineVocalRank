@@ -1,10 +1,8 @@
-from sys import prefix
 from typing import Annotated
 
-from fastapi import APIRouter, Query, Path
+from fastapi import APIRouter, Path
 from pydantic import BaseModel, Field
 
-from bilibili_modles.Video import Video
 from nine_vocal_rank.models.VocaloidVideo import VocaloidVideo
 from nine_vocal_rank.utils.db import get_video_ranking
 
@@ -18,13 +16,14 @@ class RankingData(BaseModel):
 
 @sorted_router.get("/{vid}")
 async def get_video_ranking_(
-    vid: Annotated[str, Path(title="视频ID，支持AVID与BVID")],
+    vid: Annotated[str, Path(title="视频ID，支持AVID与BVID (AVID会慢很多)")],
 ) -> RankingData:
     """
     获取视频的排名
     """
     video = VocaloidVideo(vid)
-    await video.async_update_basic_data()
+    if video.video_id["bvid"] == "":
+        await video.async_update_basic_data()
 
     score_rank, view_rank = await get_video_ranking(video)
     return RankingData(view_rank=view_rank, score_rank=score_rank)

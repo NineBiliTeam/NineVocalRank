@@ -18,7 +18,7 @@ API文档：[NineBiliRank Basic API](https://apifox.com/apidoc/shared-a554e842-b
 
 P.S：**由于B站用户会用奇奇怪怪的emoji投稿，mysql用户一定要设置字符集`utf8mb4`一定要设置字符集`utf8mb4`一定要设置字符集`utf8mb4`**
 
-公共搭建：[NineBiliDataBaseAPI](https://api.ninevocalrank.top/redoc)
+公共搭建（勿压谢谢）（搭建中）：NineBiliDataBaseAPI
 
 ## 2. 功能
 
@@ -31,10 +31,7 @@ P.S：**由于B站用户会用奇奇怪怪的emoji投稿，mysql用户一定要�
 2. 新建虚拟环境并`pip install -r requirements.txt`
 3. `cd NineVocalRank`并修改`BasicConfig.yml`以及`config.dev.yml`，配置数据库
 4. 从`data`文件夹内找到一个最近日期的txt文件（如`2025-02-06.txt`），这个文件包含`NineSpyder`获取的中V曲目BV号数据，将其的路径填写到`config.dev.yml`对应的配置项内
-5. `alembic upgrade head`
-6. `python nbrank.py`
-   
-**初始数据导入可能需要很久**
+5. `python nbapi.py` 启动API `python nbspider.py` 启动爬虫 
 
 
 ## 4. 收录规则

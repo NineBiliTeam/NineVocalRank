@@ -1,6 +1,9 @@
 from bilibili_modles.Video import Video
 from config import reg_buildin_filter
-from filter.buildin_filters.VocaloidChinaFilter import VocaloidChinaFilter, blacklist_keyword
+from filter.buildin_filters.VocaloidChinaFilter import (
+    VocaloidChinaFilter,
+    blacklist_keyword,
+)
 
 uploader_blacklist = [
     # 屏蔽规则1.4: 拒绝收录的UP主
@@ -25,7 +28,10 @@ class NBVCDatabaseFilter(VocaloidChinaFilter):
         # NBVC检查1：被排除排名的UP主
         for mid in uploader_blacklist:
             if video.video_info["uploader_mid"] == mid:
-                return False, f"UP主声明不参与收录(2.3) 当前拒绝收录MID列表：{uploader_blacklist}"
+                return (
+                    False,
+                    f"UP主声明不参与收录(2.3) 当前拒绝收录MID列表：{uploader_blacklist}",
+                )
 
         # NBVC检查2：被鉴定为买量的曲目
         for vid in video_blacklist:

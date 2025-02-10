@@ -18,10 +18,11 @@ from logger import logger
 from nine_vocal_rank.exceptions.database import VideoValidationError
 from scheduler.reset_database import reset_database
 
-tasks, scheduler = list(), AsyncIOScheduler()
+taskslist = list()
 routers = list()
 start_hooks, async_start_tasks = list(), list()
 allow_origins = list()
+mode = ""
 
 
 @asynccontextmanager
@@ -29,10 +30,6 @@ async def start_hook(_app: FastAPI):
     """
     FastAPI启动钩子
     """
-    for task in tasks:
-        scheduler.add_job(*task[0], **task[1])
-        logger.success(f"成功启用定时任务：{task[0][0].__name__}")
-    scheduler.start()
     for async_task in async_start_tasks:
         asyncio.get_event_loop().create_task(async_task())
         logger.info(f"正在运行异步并行启动任务：{async_task.__name__}")
@@ -55,6 +52,7 @@ async def start_hook(_app: FastAPI):
 
 
 def init(
+    mode_: str,
     filter_=None,
     tasks_=None,
     proxy_pool=None,
@@ -65,6 +63,7 @@ def init(
 ):
     """
     初始化NineBiliRank
+    :param mode_:启动模式 spyder：爬虫模式 api：api模式
     :param filter_: 视频过滤器
     :param tasks_: 定时任务列表：[[函数名, 触发器], {其他参数的字典...}]
     :param proxy_pool: 自定义代理源
@@ -73,7 +72,8 @@ def init(
     :param async_start_tasks_: 异步并行钩子列表
     :return:
     """
-    global tasks, routers, start_hooks, async_start_tasks, allow_origins
+    global tasks, routers, start_hooks, async_start_tasks, allow_origins, mode
+    mode = mode_
     if tasks_ is None:
         tasks_ = []
     if routers_ is None:
@@ -114,8 +114,7 @@ fastapi_app.add_middleware(
 fastapi_cdn_host.patch_docs(fastapi_app)
 
 
-@logger.catch
-def run(debug: bool = False, *args, **kwargs):
+def run_api(debug: bool = False):
     logger.info(f"服务器启动中...")
     host = config["basic_config"]["server"]["host"]
     port = config["basic_config"]["server"]["port"]
@@ -139,6 +138,28 @@ def run(debug: bool = False, *args, **kwargs):
                 reload_delay=0.01,
             )
         )
+
+
+@logger.catch
+def run(debug: bool = False, *args, **kwargs):
+    if mode == "api":
+        run_api(debug=debug)
+    if mode == "spyder":
+        run_spider()
+
+
+def run_spider():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    scheduler = AsyncIOScheduler(event_loop=loop)
+    for task in tasks:
+        scheduler.add_job(*task[0], **task[1])
+        logger.success(f"成功启用定时任务：{task[0][0].__name__}")
+    scheduler.start()
+    for async_task in async_start_tasks:
+        loop.create_task(async_task())
+        logger.info(f"正在运行异步并行启动任务：{async_task.__name__}")
+    loop.run_forever()
 
 
 @fastapi_app.exception_handler(Exception)

@@ -1,15 +1,11 @@
-from tabnanny import check
-
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from logger import logger
-from bilibili_modles.Video import Video
 from config import get_config_from_file
 from database import async_session
 from nine_vocal_rank.db_models import MonitoredVideo, FreshAchievementVideo
 from nine_vocal_rank.models.VocaloidVideo import VocaloidVideo
-from nine_vocal_rank.models.enums import VideoRankCode
 from nine_vocal_rank.utils.db import monitored_video_to_fresh_achievement_video
 from nine_vocal_rank.utils.vrank_score import get_target_view
 
@@ -53,6 +49,7 @@ async def upgrade_video(
 
 
 async def achievement_monitor(level: int):
+    logger.info(f"启动视频成就监测...等级：{level}")
     count = await MonitoredVideo.count()
     i = 0
     max_ = await MonitoredVideo.max_id()
