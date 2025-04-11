@@ -1,6 +1,6 @@
 from sqlalchemy import select
 
-from bilibili_modles.Video import Video
+from bilibili_modules.Video import Video
 from database.model.Video import VideoDB
 from database.utils import search_by_sql
 from utils.to_schemas import video_db_to_model

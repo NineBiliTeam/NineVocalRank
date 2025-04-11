@@ -41,6 +41,6 @@ class JHaoProxyPool(BaseProxyPool):
         return Proxy(resp["proxy"], is_https=resp["https"])
 
 
-from config import reg_buildin_proxy_pool
+from config import reg_builtin_proxy_pool
 
-reg_buildin_proxy_pool({"JHaoProxyPool": JHaoProxyPool})
+reg_builtin_proxy_pool({"JHaoProxyPool": JHaoProxyPool})

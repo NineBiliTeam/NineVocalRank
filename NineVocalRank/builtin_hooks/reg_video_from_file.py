@@ -3,7 +3,7 @@ import os
 import random
 from pathlib import Path
 
-from bilibili_modles.Video import Video
+from bilibili_modules.Video import Video
 from config import get_config, get_config_from_file, get_filter
 from database.utils.add_video import add_video_to_db
 from logger import logger

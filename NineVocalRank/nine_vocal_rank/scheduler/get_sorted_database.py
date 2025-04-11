@@ -3,7 +3,7 @@ from collections import namedtuple
 import random
 
 from logger import logger
-from bilibili_modles.Video import Video
+from bilibili_modules.Video import Video
 from config import get_config, get_config_from_file
 from database import async_session
 from database.model.Video import VideoDB

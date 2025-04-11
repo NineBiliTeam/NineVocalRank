@@ -5,7 +5,7 @@ from typing import TypedDict
 from loguru import logger
 from pydantic import Field
 
-from bilibili_modles.Video import Video
+from bilibili_modules.Video import Video
 from config import get_filter
 from database.utils.add_video import add_video_to_db
 from database.utils.search_video import search_video_by_bvid

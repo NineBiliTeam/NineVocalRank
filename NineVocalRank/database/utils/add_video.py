@@ -1,7 +1,7 @@
 from sqlalchemy import select
 
-from bilibili_modles.Uploader import Uploader
-from bilibili_modles.Video import Video
+from bilibili_modules.Uploader import Uploader
+from bilibili_modules.Video import Video
 from database import async_session
 from database.model.Video import VideoDB
 from database.utils.add_uploader import add_uploader_to_db

@@ -1,13 +1,13 @@
 from fastapi import APIRouter
 from fastapi.params import Form, Depends
 
-from bilibili_modles.Video import Video
-from buildin_apis.basic.v1.models import (
+from bilibili_modules.Video import Video
+from builtin_apis.basic.v1.models import (
     ResponseStatus,
     ResponseModel,
     ResponseStatusMessage,
 )
-from buildin_apis.depends.key_auth import key_auth
+from builtin_apis.depends.key_auth import key_auth
 from config import get_filter
 from database.utils.add_video import add_video_to_db
 from database.utils.delete_video import delete_video

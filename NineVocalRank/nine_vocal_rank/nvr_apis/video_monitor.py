@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel, Field
 from typing_extensions import TypedDict
 
-from bilibili_modles.Video import Video
+from bilibili_modules.Video import Video
 from nine_vocal_rank.models.VocaloidVideo import VocaloidVideo
 from nine_vocal_rank.utils.db import get_all_fresh_achievement_videos
 from nine_vocal_rank.utils.vrank_score import get_rank

@@ -1,6 +1,6 @@
-from bilibili_modles.Video import Video
-from config import reg_buildin_filter
-from filter.buildin_filters.VocaloidChinaFilter import (
+from bilibili_modules.Video import Video
+from config import reg_builtin_filter
+from filter.builtin_filters.VocaloidChinaFilter import (
     VocaloidChinaFilter,
     blacklist_keyword,
 )
@@ -41,4 +41,4 @@ class NBVCDatabaseFilter(VocaloidChinaFilter):
         return await super().check(video)
 
 
-reg_buildin_filter({"NBVCDatabaseFilter": NBVCDatabaseFilter})
+reg_builtin_filter({"NBVCDatabaseFilter": NBVCDatabaseFilter})

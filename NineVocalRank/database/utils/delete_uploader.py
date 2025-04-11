@@ -1,6 +1,6 @@
 from sqlalchemy import select
 
-from bilibili_modles.Uploader import Uploader
+from bilibili_modules.Uploader import Uploader
 from database import async_session
 from database.model.Uploader import UploaderDB
 

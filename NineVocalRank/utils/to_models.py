@@ -1,7 +1,7 @@
 import time
 
-from bilibili_modles.Uploader import Uploader
-from bilibili_modles.Video import Video
+from bilibili_modules.Uploader import Uploader
+from bilibili_modules.Video import Video
 from database.model.Uploader import UploaderDB
 from database.model.Video import VideoDB
 

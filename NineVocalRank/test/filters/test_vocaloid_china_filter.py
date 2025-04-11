@@ -1,8 +1,8 @@
 # 测试用例
 import pytest
 
-from bilibili_modles.Video import Video
-from filter.buildin_filters.VocaloidChinaFilter import VocaloidChinaFilter
+from bilibili_modules.Video import Video
+from filter.builtin_filters.VocaloidChinaFilter import VocaloidChinaFilter
 
 videos = [
     # ------------正常数据部分--------------------

@@ -1,4 +1,4 @@
-from bilibili_modles.Video import Video
+from bilibili_modules.Video import Video
 from filter.BaseFilter import BaseFilter
 
 
@@ -10,6 +10,6 @@ class NoneFilter(BaseFilter):
         return True, ""
 
 
-from config import reg_buildin_filter
+from config import reg_builtin_filter
 
-reg_buildin_filter({"None": NoneFilter})
+reg_builtin_filter({"None": NoneFilter})
