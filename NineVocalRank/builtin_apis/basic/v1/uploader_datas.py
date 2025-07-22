@@ -4,7 +4,7 @@ from fastapi import APIRouter, Query
 from fastapi.params import Path
 from pydantic import BaseModel, Field
 
-from bilibili_modles.Uploader import Uploader
+from bilibili_modules.Uploader import Uploader
 from database.utils.search_uploader import (
     search_uploader_by_mid,
     search_uploader_by_name_keyword,

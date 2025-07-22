@@ -1,4 +1,4 @@
-from config import reg_buildin_proxy_pool
+from config import reg_builtin_proxy_pool
 from http_utils.proxy.BaseProxyPool import BaseProxyPool
 from http_utils.proxy.Proxy import Proxy
 
@@ -20,4 +20,4 @@ class NoneProxyPool(BaseProxyPool):
         return Proxy()
 
 
-reg_buildin_proxy_pool({"None": NoneProxyPool})
+reg_builtin_proxy_pool({"None": NoneProxyPool})

@@ -1,6 +1,6 @@
 import abc
 
-from bilibili_modles.Video import Video
+from bilibili_modules.Video import Video
 
 
 class BaseFilter:

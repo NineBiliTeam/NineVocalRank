@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, Form
 
-from bilibili_modles.Uploader import Uploader
-from buildin_apis.basic.v1.models import (
+from bilibili_modules.Uploader import Uploader
+from builtin_apis.basic.v1.models import (
     ResponseModel,
     ResponseStatusMessage,
     ResponseStatus,
 )
-from buildin_apis.depends.key_auth import key_auth
+from builtin_apis.depends.key_auth import key_auth
 from database.utils.add_uploader import add_uploader_to_db
 from database.utils.delete_uploader import delete_uploader
 from database.utils.update_uploader import update_uploader

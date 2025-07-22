@@ -2,7 +2,7 @@ import time
 
 from sqlalchemy import select
 
-from bilibili_modles.Video import Video
+from bilibili_modules.Video import Video
 from database import async_session
 from database.model.Video import VideoDB
 

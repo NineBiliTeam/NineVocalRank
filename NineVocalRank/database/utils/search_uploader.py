@@ -1,6 +1,6 @@
 from sqlalchemy import select
 
-from bilibili_modles.Uploader import Uploader
+from bilibili_modules.Uploader import Uploader
 from database.model.Uploader import UploaderDB
 from database.utils import search_by_sql
 from utils.to_schemas import uploader_db_to_model

@@ -1,7 +1,7 @@
 import pytest
 
-from bilibili_modles.Uploader import Uploader
-from bilibili_modles.Video import Video
+from bilibili_modules.Uploader import Uploader
+from bilibili_modules.Video import Video
 from utils.to_models import video_model_to_db, uploader_model_to_db
 from utils.to_schemas import video_db_to_model, uploader_db_to_model
 

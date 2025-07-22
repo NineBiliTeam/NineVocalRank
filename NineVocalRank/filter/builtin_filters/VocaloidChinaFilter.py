@@ -1,5 +1,5 @@
-from bilibili_modles.Video import Video
-from config import reg_buildin_filter
+from bilibili_modules.Video import Video
+from config import reg_builtin_filter
 from filter.BaseFilter import BaseFilter
 
 keywords = [
@@ -101,4 +101,4 @@ class VocaloidChinaFilter(BaseFilter):
         return False, "不符合中文虚拟歌手曲目定义(1.1)(无法匹配任何中V关键词)"
 
 
-reg_buildin_filter({"VocaloidChinaFilter": VocaloidChinaFilter})
+reg_builtin_filter({"VocaloidChinaFilter": VocaloidChinaFilter})

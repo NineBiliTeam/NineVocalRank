@@ -1,12 +1,12 @@
 from fastapi import APIRouter
 
-from buildin_apis.basic.v1.database import database_router
-from buildin_apis.basic.v1.server_stat import server_stat_router
-from buildin_apis.basic.v1.uploader_datas import uploader_router
-from buildin_apis.basic.v1.uploader_manager import uploader_manager_router
-from buildin_apis.basic.v1.video_datas import video_router
-from buildin_apis.basic.v1.video_manage import video_manager_router
-from buildin_apis.models import APIPluginMeta
+from builtin_apis.basic.v1.database import database_router
+from builtin_apis.basic.v1.server_stat import server_stat_router
+from builtin_apis.basic.v1.uploader_datas import uploader_router
+from builtin_apis.basic.v1.uploader_manager import uploader_manager_router
+from builtin_apis.basic.v1.video_datas import video_router
+from builtin_apis.basic.v1.video_manage import video_manager_router
+from builtin_apis.models import APIPluginMeta
 
 basic_v1_router = APIRouter(
     prefix="/basic/v1",
@@ -20,7 +20,7 @@ async def root() -> APIPluginMeta:
         name="basic_api",
         version="1.0.0",
         description="NineBiliRank的基础功能API",
-        plugin_type="buildin",
+        plugin_type="builtin",
         author="Moran0710",
     )
 

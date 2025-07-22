@@ -3,8 +3,8 @@ from typing import Annotated
 from fastapi import APIRouter
 from fastapi.params import Query, Path
 
-from bilibili_modles.Video import Video
-from buildin_apis.basic.v1.models import VideoIDRequestModel
+from bilibili_modules.Video import Video
+from builtin_apis.basic.v1.models import VideoIDRequestModel
 from database.utils.search_video import (
     search_video_by_bvid,
     search_video_by_avid,

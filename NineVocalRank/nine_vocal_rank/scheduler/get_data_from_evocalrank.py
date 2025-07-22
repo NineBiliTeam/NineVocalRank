@@ -1,6 +1,6 @@
 from sqlalchemy.dialects.postgresql.psycopg import logger
 
-from bilibili_modles.Video import Video
+from bilibili_modules.Video import Video
 from database.utils.add_video import add_video_to_db
 from http_utils.http import HttpRequest
 

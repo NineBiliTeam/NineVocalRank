@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, func, select
 from sqlalchemy.orm import Mapped
 
-from bilibili_modles.Uploader import Uploader
+from bilibili_modules.Uploader import Uploader
 from database import Base, async_session
 
 

@@ -10,7 +10,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 from uvicorn_loguru_integration import run_uvicorn_loguru
 
-from buildin_apis.depends.key_auth import key_auth
+from builtin_apis.depends.key_auth import key_auth
 from config import get_config, get_apikey, get_config_from_file, Config
 from exceptions.BilibiliException import BilibiliException
 

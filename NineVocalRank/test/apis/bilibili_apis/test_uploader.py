@@ -1,7 +1,7 @@
 import httpx
 import pytest
 
-from bilibili_modles.Uploader import Uploader
+from bilibili_modules.Uploader import Uploader
 from exceptions.BilibiliException import BilibiliRequestException
 
 uploaders = [

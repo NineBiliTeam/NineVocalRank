@@ -1,6 +1,6 @@
 import pytest
 
-from bilibili_modles.Video import Video
+from bilibili_modules.Video import Video
 from exceptions.BilibiliException import BilibiliVideoException, BilibiliException
 
 # 测试用例

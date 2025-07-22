@@ -1,6 +1,6 @@
 import startup
-from buildin_apis.basic.v1 import basic_v1_router
-from buildin_hooks.reg_video_from_file import reg_video_from_file
+from builtin_apis.basic.v1 import basic_v1_router
+from builtin_hooks.reg_video_from_file import reg_video_from_file
 from nine_vocal_rank.nvr_apis import nine_vocal_rank_router
 from nine_vocal_rank.scheduler.achievement_monitor import achievement_monitor
 from nine_vocal_rank.scheduler.get_data_from_evocalrank import get_data_from_evocalrank

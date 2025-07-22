@@ -1,8 +1,8 @@
 # 测试用例
 import pytest
 
-from bilibili_modles.Video import Video
-from filter.buildin_filters.NBVCDatabaseFilter import NBVCDatabaseFilter
+from bilibili_modules.Video import Video
+from filter.builtin_filters.NBVCDatabaseFilter import NBVCDatabaseFilter
 
 videos = [
     # ------------正常数据部分--------------------

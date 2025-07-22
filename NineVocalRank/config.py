@@ -10,30 +10,30 @@ from utils.config_utils import init_config
 
 __NBR_VERSION__ = "0.0.1-beta"
 
-buildin_proxy_pools = {}
+builtin_proxy_pools = {}
 
 
-def reg_buildin_proxy_pool(info: dict[str, type[BaseProxyPool]]):
+def reg_builtin_proxy_pool(info: dict[str, type[BaseProxyPool]]):
     """注册内建代理源， 传入类名"""
-    buildin_proxy_pools.update(info)
+    builtin_proxy_pools.update(info)
 
 
 from http_utils.proxy import *
 
-logger.debug(f"已经注册代理源：{buildin_proxy_pools}")
+logger.debug(f"已经注册代理源：{builtin_proxy_pools}")
 
-buildin_filters = dict()
+builtin_filters = dict()
 
 
-def reg_buildin_filter(info: dict):
+def reg_builtin_filter(info: dict):
     """注册内建过滤器， 传入类名"""
-    buildin_filters.update(info)
+    builtin_filters.update(info)
 
 
-from filter.buildin_filters import *
+from filter.builtin_filters import *
 
 
-logger.debug(f"已经注册过滤器：{buildin_filters}")
+logger.debug(f"已经注册过滤器：{builtin_filters}")
 
 
 def get_config(*arg, **kwargs):
@@ -119,7 +119,7 @@ class Config:
         :param proxy_pool: (自定义的代理池, 位置参数列表, 名字参数字典)
         """
         if filter_ is None:
-            filter_ = (buildin_filters["None"], tuple(), dict)
+            filter_ = (builtin_filters["None"], tuple(), dict)
         if proxy_pool is None:
             from http_utils.proxy.proxy_pools.NoneProxyPool import NoneProxyPool
 
@@ -129,8 +129,8 @@ class Config:
         logger.info(f"载入配置：{self._config}")
 
         # 设置代理源
-        if self._config["basic_config"]["spyder"]["proxy"] in buildin_proxy_pools:
-            self._proxy_pool = buildin_proxy_pools[
+        if self._config["basic_config"]["spyder"]["proxy"] in builtin_proxy_pools:
+            self._proxy_pool = builtin_proxy_pools[
                 self._config["basic_config"]["spyder"]["proxy"]
             ]
             self._proxy_pool_args = (tuple(), dict())
@@ -143,8 +143,8 @@ class Config:
             logger.success(f"使用自定义代理源：{proxy_pool[0]}")
 
         # 配置过滤器
-        if self._config["basic_config"]["filter"]["type"] in buildin_filters:
-            self._filter = buildin_filters[
+        if self._config["basic_config"]["filter"]["type"] in builtin_filters:
+            self._filter = builtin_filters[
                 self._config["basic_config"]["filter"]["type"]
             ]
             self._filter_args = (tuple(), dict())
